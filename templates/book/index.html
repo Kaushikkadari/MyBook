@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaushikWrites - {{ book_title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">KaushikWrites</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#book" class="nav-link">Book</a></li>
+                <li><a href="#quotes" class="nav-link">Quotes</a></li>
+                <li><a href="#author" class="nav-link">Author</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="particles"></div>
+        
+        <!-- Thought Bubble Quote 1 - Top Left -->
+        <div class="thought-bubble thought-bubble-left">
+            <p>"Where logic ends, the heart begins to write its own answers."</p>
+        </div>
+        
+        <!-- Thought Bubble Quote 2 - Bottom Right -->
+        <div class="thought-bubble thought-bubble-right">
+            <p>"Not every connection is meant to last — some are meant to change us, and that's their forever."</p>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="glitch" data-text="{{ book_title }}">{{ book_title }}</h1>
+            <p class="hero-subtitle">{{ book_description }}</p>
+            <a href="#book" class="btn btn-primary">
+                <span>Explore Now</span>
+                <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <!-- 3D Book Section -->
+    <section id="book" class="book-section">
+        <div class="container">
+            <h2 class="section-title">The Book</h2>
+            <div class="book-showcase">
+                <div class="book-3d">
+                    <div class="book-container">
+                        <div class="book">
+                            <div class="book-front">
+                                <img src="{% static 'images/bookkk.png' %}" alt="Front Cover">
+                            </div>
+                            <div class="book-back">
+                                <img src="{% static 'images/back cover.jpg' %}" alt="Back Cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="book-description">
+                        <p><em>7 Equations & One Unsolved Heart</em> is a journey through laughter, heartbreak, and the fragile beauty of growing up. If you've ever carried a love in silence, or found comfort in the chaos of friendship, this book is for you.</p>
+                    </div>
+                </div>
+                <div class="book-details">
+                    <div class="detail-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Publication Year</h3>
+                        <p>{{ publication_year }}</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Pages</h3>
+                        <p>{{ pages }}</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-tag"></i>
+                        <h3>Genre</h3>
+                        <p>{{ genre }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section id="quotes" class="quotes-section">
+        <div class="container">
+            <h2 class="section-title">Book Quotes</h2>
+            <div class="quotes-carousel">
+                <div class="quote-container">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote-text">"Seven equations, infinite emotions. One heart, unsolvable mystery."</p>
+                    <p class="quote-author">— Prologue</p>
+                    
+                </div>
+                <div class="quote-container">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote-text">"Love isn't an equation you solve — it's the beautiful chaos that proves math has limits."</p>
+                    <p class="quote-author">— Chapter 3</p>
+                   
+                </div>
+                <div class="quote-container">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote-text">"We often give our best to the people we care for, especially the ones we love the most. But the real worth of our efforts is seen only when they value them. Love loses its warmth when met with indifference — it blossoms only in respect."</p>
+                    <p class="quote-author">— Chapter 5</p>
+                </div>
+                <div class="quote-container">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote-text">"In the algorithm of life, love is the variable that changes everything."</p>
+                    <p class="quote-author">— Chapter 7</p>
+                </div>
+            </div>
+            <div class="quote-navigation">
+                <button class="quote-nav-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="quote-dots"></div>
+                <button class="quote-nav-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Author Section -->
+    <section id="author" class="author-section">
+        <div class="container">
+            <h2 class="section-title">About the Author</h2>
+            <div class="author-content">
+                <div class="author-image-container">
+                    <div class="author-image">
+                        <img src="{% static 'images/author.png' %}" alt="{{ author_name }}">
+                        <div class="image-border"></div>
+                    </div>
+                </div>
+                <div class="author-info">
+                    <h3>{{ author_name }}</h3>
+                    <p class="author-bio">{{ author_bio|safe }}</p>
+                    <div class="author-social">
+                        <a href="mailto:kaushik.writes.1@gmail.com" class="social-link" target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a href="https://instagram.com/kaushikk.writes" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <h2 class="section-title">Get Your Copy</h2>
+            <div class="download-content">
+                <div class="download-card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Download PDF</h3>
+                    <p>Get the complete book in PDF format. Read anywhere, anytime.</p>
+                    <!-- <a href="{% url 'book:download' %}" class="btn btn-download"> -->
+                    <a href="#" class="btn btn-download">
+                        <i class="fas fa-download"></i>
+                        <span>Not Released Yet</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy;2025 KaushikWrites. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize carousel on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔄 DOM Ready - Initializing carousel...');
+            
+            let currentQuote = 0;
+            const quoteContainers = document.querySelectorAll('.quote-container');
+            const quoteDots = document.querySelector('.quote-dots');
+            
+            console.log('📊 Found', quoteContainers.length, 'quotes');
+            
+            if (quoteContainers.length === 0) {
+                console.error('❌ No quotes found!');
+                return;
+            }
+            
+            // Show first quote
+            quoteContainers[0].classList.add('active');
+            console.log('✅ First quote shown');
+            
+            // Create navigation dots
+            if (quoteDots) {
+                quoteContainers.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('quote-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', function() {
+                        goToQuote(index);
+                    });
+                    quoteDots.appendChild(dot);
+                });
+                console.log('✅ Created', quoteContainers.length, 'dots');
+            }
+            
+            function showQuote(index) {
+                console.log('📖 Transitioning to quote', index + 1);
+                
+                // Hide all quotes
+                quoteContainers.forEach((container) => {
+                    container.classList.remove('active');
+                });
+                
+                // Show selected quote
+                quoteContainers[index].classList.add('active');
+                
+                // Update dots
+                const dots = document.querySelectorAll('.quote-dot');
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            function goToQuote(index) {
+                currentQuote = index;
+                showQuote(currentQuote);
+            }
+            
+            function nextQuote() {
+                currentQuote = (currentQuote + 1) % quoteContainers.length;
+                showQuote(currentQuote);
+            }
+            
+            // Auto-advance every 5 seconds
+            const autoAdvance = setInterval(function() {
+                nextQuote();
+                console.log('⏩ Auto-advancing to quote', currentQuote + 1);
+            }, 5000);
+            
+            console.log('✅ Auto-advance enabled (5 seconds)');
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    currentQuote = (currentQuote - 1 + quoteContainers.length) % quoteContainers.length;
+                    showQuote(currentQuote);
+                }
+                if (e.key === 'ArrowRight') {
+                    nextQuote();
+                }
+            });
+            
+            console.log('🎉 Carousel fully initialized and running!');
+        });
+    </script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+
+
+
