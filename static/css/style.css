@@ -108,6 +108,52 @@ body {
     width: 100%;
 }
 
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.mobile-menu-toggle:hover span {
+    background: var(--secondary-color);
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -1238,88 +1284,212 @@ body {
 }
 
 /* Responsive Design */
+
+/* Large Tablets and Small Desktops (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .book-showcase {
+        gap: 40px;
+    }
+
+    .book-3d {
+        min-height: 600px;
+    }
+
+    .thought-bubble {
+        max-width: 250px;
+        padding: 22px 28px;
+    }
+
+    .thought-bubble p {
+        font-size: 0.9rem;
+    }
+
+    .quote-text {
+        font-size: 1.6rem;
+    }
+
+    .detail-card {
+        padding: 25px;
+    }
+}
+
+/* Tablets (481px - 768px) */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .navbar .container {
+        padding: 0.8rem 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-brand {
+        font-size: 1.3rem;
+        z-index: 1001;
+    }
+
+    /* Show mobile menu toggle */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
     .nav-menu {
+        display: none;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(15, 17, 23, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 80px 30px 30px;
+        border-left: 1px solid rgba(167, 139, 250, 0.2);
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        overflow-y: auto;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        display: flex;
+        right: 0;
+    }
+
+    .nav-menu li {
+        opacity: 0;
+        transform: translateX(50px);
+        animation: slideInMenu 0.3s ease forwards;
+    }
+
+    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { animation-delay: 0.15s; }
+    .nav-menu.active li:nth-child(3) { animation-delay: 0.2s; }
+    .nav-menu.active li:nth-child(4) { animation-delay: 0.25s; }
+    .nav-menu.active li:nth-child(5) { animation-delay: 0.3s; }
+
+    @keyframes slideInMenu {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 10px 0;
+        display: block;
+        text-align: center;
+        border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        padding: 20px 0;
     }
 
     .glitch {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        line-height: 1.5;
+        padding: 0 10px;
     }
 
-    /* Thought Bubbles Mobile */
+    .btn-primary {
+        padding: 12px 28px;
+        font-size: 0.95rem;
+    }
+
+    /* Thought Bubbles Tablet */
     .thought-bubble {
-        max-width: 200px;
-        padding: 18px 22px;
+        max-width: 220px;
+        padding: 20px 24px;
     }
 
     .thought-bubble p {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         line-height: 1.5;
     }
 
     .thought-bubble-left {
-        top: 90px;
+        top: 100px;
         left: 20px;
     }
 
-    .thought-bubble-left::before {
-        bottom: -30px;
-        right: 40px;
-        width: 20px;
-        height: 20px;
-    }
-
-    .thought-bubble-left::after {
-        bottom: -50px;
-        right: 25px;
-        width: 12px;
-        height: 12px;
-    }
-
     .thought-bubble-right {
-        bottom: 90px;
+        bottom: 100px;
         right: 20px;
     }
 
-    .thought-bubble-right::before {
-        top: -30px;
-        left: 40px;
-        width: 20px;
-        height: 20px;
+    /* Book Section */
+    .book-section,
+    .quotes-section,
+    .author-section,
+    .download-section {
+        padding: 60px 0;
     }
 
-    .thought-bubble-right::after {
-        top: -50px;
-        left: 25px;
-        width: 12px;
-        height: 12px;
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
     }
 
     .book-showcase {
         grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .book-3d {
-        min-height: 450px;
-        padding: 40px 0;
+        min-height: 500px;
+        padding: 20px 0 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .book-container {
+        order: 1;
     }
 
     .book {
-        max-width: 280px;
+        max-width: 300px;
     }
 
     .book-description {
-        position: static;
+        position: static !important;
         max-width: 90%;
-        margin: 30px auto 0;
+        margin: 0 auto;
         padding: 25px;
         border-radius: 40% 40% 40% 40% / 50% 50% 50% 50%;
+        order: 2;
     }
 
     .book-description::before {
@@ -1339,35 +1509,511 @@ body {
     }
 
     .book-description p {
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.6;
     }
 
+    .detail-card {
+        padding: 25px 20px;
+    }
+
+    .detail-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .detail-card p {
+        font-size: 1rem;
+    }
+
+    /* Quotes Section */
+    .quotes-carousel {
+        min-height: 350px;
+        height: 350px;
+        padding: 0 10px;
+    }
+
+    .quote-container {
+        padding: 30px 15px;
+    }
+
+    .quote-text {
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .quote-author {
+        font-size: 1rem;
+    }
+
+    /* Author Section */
     .author-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 40px;
     }
 
     .author-image {
-        width: 280px;
-        height: auto;
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .author-info h3 {
+        font-size: 2rem;
+    }
+
+    .author-bio {
+        font-size: 1.1rem;
     }
 
     .author-social {
         justify-content: center;
     }
 
+    /* Download Section */
+    .download-card {
+        padding: 50px 30px;
+        max-width: 90%;
+    }
+
+    .download-card h3 {
+        font-size: 1.8rem;
+    }
+
+    /* Footer */
     .footer .container {
         flex-direction: column;
         gap: 20px;
     }
 
+    .footer-links {
+        gap: 20px;
+    }
+}
+
+/* Mobile Phones (320px - 480px) */
+@media (max-width: 480px) {
+    /* Container */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Navigation */
+    .navbar .container {
+        padding: 0.7rem 15px;
+    }
+
+    .nav-brand {
+        font-size: 1.2rem;
+    }
+
+    .mobile-menu-toggle {
+        width: 28px;
+        height: 23px;
+    }
+
+    .mobile-menu-toggle span {
+        height: 2.5px;
+    }
+
+    .nav-menu {
+        width: 80%;
+        max-width: 280px;
+        padding: 70px 25px 25px;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+    }
+
+    .hero-content {
+        padding: 0 10px;
+    }
+
+    .glitch {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        word-break: break-word;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+
+    .mouse {
+        width: 25px;
+        height: 45px;
+    }
+
+    /* Thought Bubbles Mobile */
+    .thought-bubble {
+        max-width: 160px;
+        padding: 15px 18px;
+    }
+
+    .thought-bubble p {
+        font-size: 0.7rem;
+        line-height: 1.4;
+    }
+
+    .thought-bubble-left {
+        top: 80px;
+        left: 10px;
+    }
+
+    .thought-bubble-left::before {
+        bottom: -25px;
+        right: 30px;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+    }
+
+    .thought-bubble-left::after {
+        bottom: -42px;
+        right: 18px;
+        width: 10px;
+        height: 10px;
+        border-width: 2px;
+    }
+
+    .thought-bubble-right {
+        bottom: 80px;
+        right: 10px;
+    }
+
+    .thought-bubble-right::before {
+        top: -25px;
+        left: 30px;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+    }
+
+    .thought-bubble-right::after {
+        top: -42px;
+        left: 18px;
+        width: 10px;
+        height: 10px;
+        border-width: 2px;
+    }
+
+    /* Sections */
+    .book-section,
+    .quotes-section,
+    .author-section,
+    .download-section {
+        padding: 50px 0;
+    }
+
     .section-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+
+    /* Book Section */
+    .book-3d {
+        min-height: 450px;
+        padding: 20px 0 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .book-container {
+        order: 1;
+    }
+
+    .book {
+        max-width: 240px;
+    }
+
+    .book-description {
+        max-width: 95%;
+        padding: 20px;
+        margin: 0 auto;
+        order: 2;
+        position: static !important;
+    }
+
+    .book-description p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .book-description::before {
+        bottom: -25px;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+    }
+
+    .book-description::after {
+        bottom: -42px;
+        width: 10px;
+        height: 10px;
+        border-width: 2px;
+    }
+
+    .detail-card {
+        padding: 20px 15px;
+    }
+
+    .detail-card i {
+        font-size: 2.5rem;
+    }
+
+    .detail-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .detail-card p {
+        font-size: 0.95rem;
+    }
+
+    /* Quotes Section */
+    .quotes-carousel {
+        min-height: 400px;
+        height: 400px;
+        padding: 0 5px;
+    }
+
+    .quote-container {
+        padding: 25px 10px;
+    }
+
+    .quote-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .quote-text {
+        font-size: 1.2rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .quote-author {
+        font-size: 0.95rem;
+    }
+
+    .quote-navigation {
+        margin-top: 40px;
+    }
+
+    .quote-dots {
+        gap: 10px;
+    }
+
+    .quote-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Author Section */
+    .author-image {
+        width: 220px;
+    }
+
+    .author-info h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .author-bio {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    /* Download Section */
+    .download-card {
+        padding: 40px 20px;
+        max-width: 95%;
+        border-radius: 20px;
+    }
+
+    .card-icon {
+        font-size: 4rem;
+    }
+
+    .download-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .download-card p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+
+    .btn-download {
+        padding: 15px 35px;
+        font-size: 1rem;
+        gap: 10px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 30px 0;
+    }
+
+    .footer .container {
+        text-align: center;
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-links a {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Devices (< 360px) */
+@media (max-width: 360px) {
+    .glitch {
+        font-size: 1.6rem;
+    }
+
+    .thought-bubble {
+        max-width: 140px;
+        padding: 12px 15px;
+    }
+
+    .thought-bubble p {
+        font-size: 0.65rem;
+    }
+
+    .thought-bubble-left {
+        top: 75px;
+        left: 5px;
+    }
+
+    .thought-bubble-right {
+        bottom: 75px;
+        right: 5px;
+    }
+
+    .book-3d {
+        min-height: 420px;
+        gap: 25px;
+    }
+
+    .book {
+        max-width: 200px;
+    }
+
+    .book-description {
+        padding: 18px;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+    }
+
+    .author-image {
+        width: 180px;
     }
 
     .download-card {
-        padding: 40px 20px;
+        padding: 30px 15px;
+    }
+}
+
+/* Landscape Mode Adjustments for Mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 80px 0 40px;
+    }
+
+    .thought-bubble {
+        display: none; /* Hide thought bubbles in landscape on small screens */
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .book-3d {
+        min-height: 350px;
+        padding: 30px 0;
+    }
+
+    .quotes-carousel {
+        min-height: 300px;
+        height: 300px;
+    }
+}
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    .nav-link {
+        padding: 10px 15px;
+        display: inline-block;
+    }
+
+    .btn {
+        min-height: 48px; /* Minimum touch target size */
+    }
+
+    .quote-dot {
+        width: 14px;
+        height: 14px;
+    }
+
+    .social-link {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    /* Disable hover effects on touch */
+    .btn-primary:hover,
+    .detail-card:hover,
+    .social-link:hover {
+        transform: none;
+    }
+
+    /* Tap highlights */
+    * {
+        -webkit-tap-highlight-color: rgba(167, 139, 250, 0.3);
     }
 }
 

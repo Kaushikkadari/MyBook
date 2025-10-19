@@ -13,7 +13,12 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">KaushikWrites</div>
-            <ul class="nav-menu">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#book" class="nav-link">Book</a></li>
                 <li><a href="#quotes" class="nav-link">Quotes</a></li>
@@ -270,6 +275,40 @@
             
             console.log('🎉 Carousel fully initialized and running!');
         });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+
+            // Close menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navMenu.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
+            });
+        }
     </script>
     <script src="{% static 'js/main.js' %}"></script>
 </body>

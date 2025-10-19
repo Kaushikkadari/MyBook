@@ -135,3 +135,4 @@ If it works locally, it should work on Vercel!
 
 **Need more help? Check `VERCEL_STATIC_FIX.md` for detailed troubleshooting.**
 
+
