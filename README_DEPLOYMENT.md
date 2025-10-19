@@ -240,3 +240,4 @@ Everything is configured and tested. Your Django book website is 100% ready for 
 
 *Your book website featuring "7 Equations & One Unsolved Heart" is ready to reach the world!*
 
+
