@@ -1,24 +1,9 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "booksite/wsgi.py",
-      "use": "@vercel/python"
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
-  ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "booksite/wsgi.py"
-    }
-  ],
-  "env": {
-    "DJANGO_SETTINGS_MODULE": "booksite.settings",
-    "DEBUG": "False"
-  }
+  ]
 }
 
