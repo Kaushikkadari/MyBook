@@ -1,20 +1,22 @@
-venv
-env
+venv/
+env/
 .env
 *.pyc
-__pycache__
+__pycache__/
 db.sqlite3
-.git
+db.sqlite3-journal
 *.log
 .DS_Store
-.vscode
-.idea
+.vscode/
+.idea/
 *.swp
 *.swo
-node_modules
+node_modules/
 media/
-*.md
+README.md
 build.sh
+.git/
+.gitignore
 
 
 

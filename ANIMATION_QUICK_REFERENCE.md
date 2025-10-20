@@ -255,3 +255,4 @@ Everything is ready to go! Just run your Django server and experience the cinema
 
 
 
+
