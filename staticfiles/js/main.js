@@ -4,26 +4,32 @@ console.log('🎬 Initializing Cinematic Animations...');
 
 // Typing Effect for Hero Subtitle
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎬 Typing Effect: Starting...');
     const typingElement = document.querySelector('.typing-effect');
+    console.log('🎬 Typing Element:', typingElement);
+    
     if (typingElement) {
         const text = typingElement.getAttribute('data-text') || 'Some stories aren\'t written — they\'re felt.';
+        console.log('🎬 Text to type:', text);
+        
         typingElement.textContent = '';
-        typingElement.style.width = '0';
+        typingElement.style.display = 'inline-block';
         
         let charIndex = 0;
         function typeChar() {
             if (charIndex < text.length) {
                 typingElement.textContent += text.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeChar, 50 + Math.random() * 30); // Varied typing speed
+                setTimeout(typeChar, 40); // Fixed typing speed for consistency
             } else {
-                setTimeout(() => {
-                    typingElement.style.borderRight = 'none';
-                }, 500);
+                console.log('🎬 Typing complete!');
             }
         }
         
+        console.log('🎬 Starting typing in 1.5 seconds...');
         setTimeout(typeChar, 1500); // Start after title animation
+    } else {
+        console.log('❌ Typing element not found!');
     }
 });
 

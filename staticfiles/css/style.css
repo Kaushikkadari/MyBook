@@ -293,10 +293,16 @@ body.menu-open {
 
 /* Typing Effect for Subtitle */
 .typing-effect {
-    overflow: hidden;
-    border-right: 3px solid var(--primary-color);
     white-space: nowrap;
-    animation: typing 3.5s steps(60) 1s forwards, blink-caret 0.75s step-end infinite;
+}
+
+/* Allow wrapping on mobile/tablet for readability */
+@media (max-width: 768px) {
+    .typing-effect {
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 }
 
 @keyframes typing {
@@ -2271,15 +2277,17 @@ body.menu-open {
     }
 
     .glitch {
-        font-size: 2.2rem;
-        line-height: 1.2;
+        font-size: 2rem;
+        line-height: 1.3;
         margin-bottom: 1.5rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .hero-subtitle {
         font-size: 1rem;
-        line-height: 1.5;
-        padding: 0 10px;
+        line-height: 1.6;
+        padding: 0 15px;
     }
 
     .btn-primary {
@@ -2492,20 +2500,24 @@ body.menu-open {
     }
 
     .hero-content {
-        padding: 0 10px;
+        padding: 0 20px;
+        max-width: 100%;
     }
 
     .glitch {
-        font-size: 1.8rem;
-        line-height: 1.3;
+        font-size: 1.5rem;
+        line-height: 1.4;
         margin-bottom: 1rem;
         word-break: break-word;
+        white-space: normal;
+        overflow-wrap: break-word;
     }
 
     .hero-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.5;
+        font-size: 0.9rem;
+        line-height: 1.6;
         margin-bottom: 1.5rem;
+        padding: 0 5px;
     }
 
     .btn-primary {
@@ -2765,7 +2777,17 @@ body.menu-open {
 /* Extra Small Devices (< 360px) */
 @media (max-width: 360px) {
     .glitch {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+    
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+        line-height: 1.6;
     }
 
     .thought-bubble {
