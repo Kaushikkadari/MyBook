@@ -2539,7 +2539,7 @@ body.menu-open {
     }
 
     .thought-bubble-left::before {
-        top: -25px;
+        bottom: -25px;
         right: 30px;
         width: 16px;
         height: 16px;
@@ -2547,7 +2547,7 @@ body.menu-open {
     }
 
     .thought-bubble-left::after {
-        top: -42px;
+        bottom: -42px;
         right: 18px;
         width: 10px;
         height: 10px;

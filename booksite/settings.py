@@ -85,8 +85,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Static files configuration
+# Static files configuration - Don't compress audio files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# WhiteNoise configuration for audio files
+WHITENOISE_MIMETYPES = {
+    '.mp3': 'audio/mpeg',
+    '.mpeg': 'audio/mpeg',
+}
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['mp3', 'mpeg', 'mp4', 'wav', 'webm']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

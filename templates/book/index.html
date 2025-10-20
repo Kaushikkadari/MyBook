@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KaushikWrites - {{ book_title }}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.3">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -290,83 +290,6 @@
         </div>
     </footer>
     
-    <!-- Background Music -->
-    <audio id="bgMusic" loop autoplay>
-        <source src="{% static 'audio/music.mp3' %}" type="audio/mpeg">
-    </audio>
-    
-    <!-- Music Toggle Button -->
-    <button class="audio-toggle playing" id="musicBtn">
-        <i class="fas fa-volume-up"></i>
-        <span class="audio-status">On</span>
-    </button>
-    
-    <script>
-        // AGGRESSIVE AUTO-START MUSIC
-        (function() {
-            const music = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicBtn');
-            let started = false;
-            
-            if (!music || !btn) return;
-            
-            music.volume = 0.4;
-            
-            // Aggressive auto-start function
-            function startMusic() {
-                if (started) return;
-                
-                music.play()
-                    .then(function() {
-                        started = true;
-                        btn.classList.add('playing');
-                        btn.querySelector('.audio-status').textContent = 'On';
-                        btn.querySelector('i').className = 'fas fa-volume-up';
-                    })
-                    .catch(function() {
-                        // Keep trying on any interaction
-                    });
-            }
-            
-            // Try immediately
-            startMusic();
-            
-            // Try after short delay
-            setTimeout(startMusic, 100);
-            setTimeout(startMusic, 500);
-            
-            // Try on EVERY possible user action
-            ['click', 'mousedown', 'mousemove', 'mouseenter', 'touchstart', 'touchmove', 
-             'scroll', 'keydown', 'keypress', 'focus', 'DOMContentLoaded'].forEach(function(event) {
-                document.addEventListener(event, startMusic, { passive: true, once: true });
-                window.addEventListener(event, startMusic, { passive: true, once: true });
-            });
-            
-            // Toggle button
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                
-                if (!music.paused) {
-                    music.pause();
-                    started = true;
-                    btn.classList.remove('playing');
-                    btn.querySelector('.audio-status').textContent = 'Off';
-                    btn.querySelector('i').className = 'fas fa-music';
-                } else {
-                    music.play()
-                        .then(function() {
-                            started = true;
-                            btn.classList.add('playing');
-                            btn.querySelector('.audio-status').textContent = 'On';
-                            btn.querySelector('i').className = 'fas fa-volume-up';
-                        })
-                        .catch(function(err) {
-                            alert('Error playing audio: ' + err.message);
-                        });
-                }
-            });
-        })();
-    </script>
 
     <script>
         // Initialize carousel on DOM ready
@@ -490,7 +413,7 @@
             });
         }
     </script>
-    <script src="{% static 'js/main.js' %}?v=5.1"></script>
+    <script src="{% static 'js/main.js' %}?v=5.7">
 </body>
 </html>
 
