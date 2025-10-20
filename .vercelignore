@@ -18,12 +18,6 @@ build.sh
 .git/
 .gitignore
 
-# Temporarily exclude large files
-*.mp3
-*.mpeg
-*.mp4
-*.wav
-
 
 
 

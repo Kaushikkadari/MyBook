@@ -10,15 +10,15 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.vercel.app',
-    '.now.sh',
-    '*'  # Allow all hosts (remove in production for security)
+    '.railway.app',
+    '.up.railway.app',
+    '*'  # Allow all hosts (remove in production for better security)
 ]
 
-# Vercel deployment settings
+# Deployment settings
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.vercel.app',
-    'https://*.now.sh'
+    'https://*.railway.app',
+    'https://*.up.railway.app',
 ]
 
 INSTALLED_APPS = [
