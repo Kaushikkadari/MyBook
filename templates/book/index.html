@@ -45,7 +45,7 @@
         
         <div class="hero-content">
             <h1 class="glitch hero-title-blur" data-text="{{ book_title }}">{{ book_title }}</h1>
-            <p class="hero-subtitle typing-effect" data-text="{{ book_description }}"></p>
+            <p class="hero-subtitle typing-effect" data-text="{{ book_description }}">{{ book_description }}</p>
             <a href="#book" class="btn btn-primary heartbeat-pulse">
                 <span>Explore Now</span>
                 <i class="fas fa-arrow-down"></i>
@@ -240,21 +240,12 @@
                         <i class="fas fa-file-pdf"></i>
                         <div class="download-glow"></div>
                     </div>
-                    <h3>Coming Soon</h3>
-                    <p>Be the first to know when the book releases. Get notified!</p>
-                    <form class="notify-form" onsubmit="return handleNotifySubmit(event)">
-                        <div class="email-input-container">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" placeholder="Enter your email" required class="email-input">
-                            <button type="submit" class="btn btn-notify">
-                                <span>Notify Me 💌</span>
-                            </button>
-                        </div>
-                    </form>
-                    <div class="notify-success" style="display: none;">
-                        <i class="fas fa-check-circle"></i>
-                        <p>Thank you! We'll notify you when the book is ready! 🎉</p>
-                    </div>
+                    <h3>Download Now</h3>
+                    <p>Get your copy of the book and dive into this captivating journey!</p>
+                    <a href="" class="btn btn-primary btn-download">
+                        <i class="fas fa-download"></i>
+                        <span>Not Released Yet</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -413,7 +404,7 @@
             });
         }
     </script>
-    <script src="{% static 'js/main.js' %}?v=5.7">
+    <script src="{% static 'js/main.js' %}?v=5.9">
 </body>
 </html>
 
