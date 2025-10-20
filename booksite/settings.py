@@ -10,15 +10,15 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.railway.app',
-    '.up.railway.app',
-    '*'  # Allow all hosts (remove in production for better security)
+    '.onrender.com',
+    '.render.com',
+    '*'  # Allow all hosts
 ]
 
 # Deployment settings
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.railway.app',
-    'https://*.up.railway.app',
+    'https://*.onrender.com',
+    'https://*.render.com',
 ]
 
 INSTALLED_APPS = [
