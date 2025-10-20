@@ -152,3 +152,7 @@ If static files still won't load after all this:
 The thought bubbles should appear as styled cloud shapes, not plain text.
 
 
+
+
+
+

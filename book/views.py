@@ -29,4 +29,9 @@ def download_book(request):
         raise Http404("Book PDF not found. Please add your book.pdf to the media folder.")
 
 
+def audio_test(request):
+    """Audio testing page for debugging"""
+    return render(request, 'book/audio_test.html')
+
+
 

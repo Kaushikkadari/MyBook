@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #6c5ce7;
+            color: white;
+        }
+        button:hover {
+            background: #5f4fd1;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: #333;
+        }
+        .success { color: #26de81; }
+        .error { color: #ff6b6b; }
+        .info { color: #feca57; }
+    </style>
+</head>
+<body>
+    <h1>🎵 Audio Debugging Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Direct Audio Element</h2>
+        <audio id="testAudio" controls>
+            <source src="{% static 'audio/music.mp3' %}" type="audio/mpeg">
+            <source src="{% static 'audio/music.mpeg' %}" type="audio/mpeg">
+        </audio>
+        <div class="status" id="status1">Click play button above to test audio...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: JavaScript Control</h2>
+        <button id="playBtn">▶️ Play Audio</button>
+        <button id="pauseBtn">⏸️ Pause Audio</button>
+        <button id="volumeDown">🔉 Volume Down</button>
+        <button id="volumeUp">🔊 Volume Up</button>
+        <div class="status" id="status2">Ready to test...</div>
+        <div class="status">
+            <strong>Volume:</strong> <span id="volumeLevel">50%</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: File Path Check</h2>
+        <div class="status" id="status3">Checking audio file...</div>
+        <div class="status">
+            <strong>MP3 Path:</strong> <span id="mp3Path"></span><br>
+            <strong>MPEG Path:</strong> <span id="mpegPath"></span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Log</h2>
+        <div class="status" id="consoleLog" style="max-height: 300px; overflow-y: auto;">
+            <div class="info">Open browser console (F12) for detailed logs...</div>
+        </div>
+    </div>
+
+    <script>
+        const testAudio = document.getElementById('testAudio');
+        const status1 = document.getElementById('status1');
+        const status2 = document.getElementById('status2');
+        const status3 = document.getElementById('status3');
+        const consoleLog = document.getElementById('consoleLog');
+        const volumeLevel = document.getElementById('volumeLevel');
+
+        // Custom console log
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+            consoleLog.appendChild(div);
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+            console.log(message);
+        }
+
+        // Test 1: Monitor audio element events
+        testAudio.addEventListener('loadedmetadata', function() {
+            status1.innerHTML = `<span class="success">✅ Audio metadata loaded! Duration: ${testAudio.duration.toFixed(1)}s</span>`;
+            log('Audio metadata loaded successfully', 'success');
+        });
+
+        testAudio.addEventListener('canplay', function() {
+            status1.innerHTML = `<span class="success">✅ Audio ready to play!</span>`;
+            log('Audio can play', 'success');
+        });
+
+        testAudio.addEventListener('play', function() {
+            log('Audio is playing', 'success');
+        });
+
+        testAudio.addEventListener('pause', function() {
+            log('Audio paused', 'info');
+        });
+
+        testAudio.addEventListener('error', function(e) {
+            const errorMessages = {
+                1: 'MEDIA_ERR_ABORTED - Audio loading was aborted',
+                2: 'MEDIA_ERR_NETWORK - Network error while loading',
+                3: 'MEDIA_ERR_DECODE - Audio decoding failed',
+                4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Audio format not supported or file not found'
+            };
+            const errorMsg = errorMessages[testAudio.error.code] || 'Unknown error';
+            status1.innerHTML = `<span class="error">❌ Error: ${errorMsg}</span>`;
+            log(`Audio error: ${errorMsg}`, 'error');
+        });
+
+        // Test 2: JavaScript controls
+        testAudio.volume = 0.5;
+
+        document.getElementById('playBtn').addEventListener('click', function() {
+            log('Play button clicked', 'info');
+            testAudio.play()
+                .then(() => {
+                    status2.innerHTML = '<span class="success">✅ Playing successfully!</span>';
+                    log('Audio playing successfully!', 'success');
+                })
+                .catch(err => {
+                    status2.innerHTML = `<span class="error">❌ Play failed: ${err.message}</span>`;
+                    log(`Play failed: ${err.message}`, 'error');
+                });
+        });
+
+        document.getElementById('pauseBtn').addEventListener('click', function() {
+            testAudio.pause();
+            status2.innerHTML = '<span class="info">⏸️ Paused</span>';
+        });
+
+        document.getElementById('volumeDown').addEventListener('click', function() {
+            testAudio.volume = Math.max(0, testAudio.volume - 0.1);
+            volumeLevel.textContent = Math.round(testAudio.volume * 100) + '%';
+            log(`Volume: ${Math.round(testAudio.volume * 100)}%`, 'info');
+        });
+
+        document.getElementById('volumeUp').addEventListener('click', function() {
+            testAudio.volume = Math.min(1, testAudio.volume + 0.1);
+            volumeLevel.textContent = Math.round(testAudio.volume * 100) + '%';
+            log(`Volume: ${Math.round(testAudio.volume * 100)}%`, 'info');
+        });
+
+        // Test 3: Check file paths
+        document.getElementById('mp3Path').textContent = "{% static 'audio/music.mp3' %}";
+        document.getElementById('mpegPath').textContent = "{% static 'audio/music.mpeg' %}";
+        
+        // Try to fetch the audio file to check if it exists
+        fetch("{% static 'audio/music.mp3' %}")
+            .then(response => {
+                if (response.ok) {
+                    status3.innerHTML = `<span class="success">✅ MP3 file found! Size: ${(response.headers.get('content-length') / 1024).toFixed(2)} KB</span>`;
+                    log('MP3 file accessible', 'success');
+                } else {
+                    status3.innerHTML = `<span class="error">❌ MP3 file not found (${response.status})</span>`;
+                    log(`MP3 file not found: ${response.status}`, 'error');
+                }
+            })
+            .catch(err => {
+                status3.innerHTML = `<span class="error">❌ Error checking file: ${err.message}</span>`;
+                log(`Error checking file: ${err.message}`, 'error');
+            });
+
+        // Initial log
+        log('Audio test page loaded', 'success');
+        log(`Browser: ${navigator.userAgent}`, 'info');
+    </script>
+</body>
+</html>
+
+
+

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KaushikWrites - {{ book_title }}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -31,21 +31,22 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="particles"></div>
+        <div class="gradient-waves"></div>
         
         <!-- Thought Bubble Quote 1 - Top Left -->
-        <div class="thought-bubble thought-bubble-left">
+        <div class="thought-bubble thought-bubble-left animate-bubble-up">
             <p>"Where logic ends, the heart begins to write its own answers."</p>
         </div>
         
         <!-- Thought Bubble Quote 2 - Bottom Right -->
-        <div class="thought-bubble thought-bubble-right">
+        <div class="thought-bubble thought-bubble-right animate-bubble-up">
             <p>"Not every connection is meant to last — some are meant to change us, and that's their forever."</p>
         </div>
         
         <div class="hero-content">
-            <h1 class="glitch" data-text="{{ book_title }}">{{ book_title }}</h1>
-            <p class="hero-subtitle">{{ book_description }}</p>
-            <a href="#book" class="btn btn-primary">
+            <h1 class="glitch hero-title-blur" data-text="{{ book_title }}">{{ book_title }}</h1>
+            <p class="hero-subtitle typing-effect" data-text="{{ book_description }}"></p>
+            <a href="#book" class="btn btn-primary heartbeat-pulse">
                 <span>Explore Now</span>
                 <i class="fas fa-arrow-down"></i>
             </a>
@@ -53,7 +54,28 @@
         <div class="scroll-indicator">
             <div class="mouse"></div>
         </div>
+        
+        <!-- Scroll Progress Bar -->
+        <div class="scroll-progress-bar"></div>
     </section>
+
+    <!-- Equation Divider 1 -->
+    <div class="equation-divider">
+        <div class="equation-content">
+            <div class="divider-equation">
+                <span class="equation-part">7x</span>
+                <span class="equation-part"> + </span>
+                <span class="equation-heart">♥</span>
+                <span class="equation-part"> = </span>
+                <span class="equation-part">?</span>
+            </div>
+            <div class="divider-message">
+                Life (or the seven “equations”) can be multiplied by effort, habit, experience, patience, faith, failure, and hope —
+                but when you add love, the answer becomes unknowable.
+                Because some things aren't meant to be solved by logic — only felt by the heart.
+            </div>
+        </div>
+    </div>
 
     <!-- 3D Book Section -->
     <section id="book" class="book-section">
@@ -61,8 +83,8 @@
             <h2 class="section-title">The Book</h2>
             <div class="book-showcase">
                 <div class="book-3d">
-                    <div class="book-container">
-                        <div class="book">
+                    <div class="book-container floating-book">
+                        <div class="book shine-overlay">
                             <div class="book-front">
                                 <img src="{% static 'images/bookkk.png' %}" alt="Front Cover">
                             </div>
@@ -95,6 +117,22 @@
             </div>
         </div>
     </section>
+
+    <!-- Equation Divider 2 -->
+    <div class="equation-divider">
+        <div class="equation-content">
+            <div class="divider-equation">
+                <span class="equation-part">(Love × Time)</span>
+                <span class="equation-part"> − </span>
+                <span class="equation-part">Understanding</span>
+                <span class="equation-part"> = </span>
+                <span class="equation-heart">Silence</span>
+            </div>
+            <div class="divider-message">
+                Even long-lasting love can fade into quiet if empathy and mutual understanding are missing; silence becomes the consequence.
+            </div>
+        </div>
+    </div>
 
     <!-- Quotes Section -->
     <section id="quotes" class="quotes-section">
@@ -132,28 +170,65 @@
         </div>
     </section>
 
+    <!-- Equation Divider 3 -->
+    <div class="equation-divider">
+        <div class="equation-content">
+            <div class="divider-equation">
+                <span class="equation-part">(Dreams + Memories)</span>
+                <span class="equation-part"> ÷ </span>
+                <span class="equation-part">Distance</span>
+                <span class="equation-part"> = </span>
+                <span class="equation-heart">Unfinished Story</span>
+            </div>
+            <div class="divider-message">
+                Nostalgia and aspirations persist, but physical or emotional distance prevents closure; the story stays incomplete.
+            </div>
+        </div>
+    </div>
+
     <!-- About Author Section -->
     <section id="author" class="author-section">
         <div class="container">
             <h2 class="section-title">About the Author</h2>
             <div class="author-content">
                 <div class="author-image-container">
-                    <div class="author-image">
+                    <div class="author-image hover-reveal-container">
                         <img src="{% static 'images/author.png' %}" alt="{{ author_name }}">
                         <div class="image-border"></div>
+                        <div class="hover-message">
+                            <p>"Some emotions never find their way into conversations — so I give them a page instead."</p>
+                        </div>
                     </div>
                 </div>
                 <div class="author-info">
                     <h3>{{ author_name }}</h3>
                     <p class="author-bio">{{ author_bio|safe }}</p>
                     <div class="author-social">
-                        <a href="mailto:kaushik.writes.1@gmail.com" class="social-link" target="_blank"><i class="fas fa-envelope"></i></a>
-                        <a href="https://instagram.com/kaushikk.writes" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:kaushik.writes.1@gmail.com" class="social-link glow-icon" target="_blank" data-tooltip="Email Me">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://instagram.com/kaushikk.writes" class="social-link glow-icon" target="_blank" data-tooltip="Follow on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Equation Divider 4 -->
+    <div class="equation-divider">
+        <div class="equation-content">
+            <div class="divider-equation">
+                <span class="equation-part">(Pain + Patience)</span>
+                <span class="equation-part"> = </span>
+                <span class="equation-heart">Peace²</span>
+            </div>
+            <div class="divider-message">
+                Healing is not instant; endurance through hurt brings a deeper, multiplying peace — growth is exponential.
+            </div>
+        </div>
+    </div>
 
     <!-- Download Section -->
     <section id="download" class="download-section">
@@ -161,25 +236,52 @@
             <h2 class="section-title">Get Your Copy</h2>
             <div class="download-content">
                 <div class="download-card">
-                    <div class="card-icon">
+                    <div class="card-icon floating-pdf">
                         <i class="fas fa-file-pdf"></i>
+                        <div class="download-glow"></div>
                     </div>
-                    <h3>Download PDF</h3>
-                    <p>Get the complete book in PDF format. Read anywhere, anytime.</p>
-                    <!-- <a href="{% url 'book:download' %}" class="btn btn-download"> -->
-                    <a href="#" class="btn btn-download">
-                        <i class="fas fa-download"></i>
-                        <span>Not Released Yet</span>
-                    </a>
+                    <h3>Coming Soon</h3>
+                    <p>Be the first to know when the book releases. Get notified!</p>
+                    <form class="notify-form" onsubmit="return handleNotifySubmit(event)">
+                        <div class="email-input-container">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Enter your email" required class="email-input">
+                            <button type="submit" class="btn btn-notify">
+                                <span>Notify Me 💌</span>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="notify-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Thank you! We'll notify you when the book is ready! 🎉</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Equation Divider 5 -->
+    <div class="equation-divider">
+        <div class="equation-content">
+            <div class="divider-equation">
+                <span class="equation-part">(Heart ÷ Logic)</span>
+                <span class="equation-part"> + </span>
+                <span class="equation-part">Faith</span>
+                <span class="equation-part"> = </span>
+                <span class="equation-heart">Love</span>
+            </div>
+            <div class="divider-message">
+                Love is not purely rational — it’s a surrender of strict logic combined with belief/trust.
+            </div>
+        </div>
+    </div>
+
+    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy;2025 KaushikWrites. All rights reserved.</p>
+            <p>&copy; 2025 KaushikWrites. All rights reserved.</p>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
@@ -187,6 +289,84 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Background Music -->
+    <audio id="bgMusic" loop autoplay>
+        <source src="{% static 'audio/music.mp3' %}" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Toggle Button -->
+    <button class="audio-toggle playing" id="musicBtn">
+        <i class="fas fa-volume-up"></i>
+        <span class="audio-status">On</span>
+    </button>
+    
+    <script>
+        // AGGRESSIVE AUTO-START MUSIC
+        (function() {
+            const music = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            let started = false;
+            
+            if (!music || !btn) return;
+            
+            music.volume = 0.4;
+            
+            // Aggressive auto-start function
+            function startMusic() {
+                if (started) return;
+                
+                music.play()
+                    .then(function() {
+                        started = true;
+                        btn.classList.add('playing');
+                        btn.querySelector('.audio-status').textContent = 'On';
+                        btn.querySelector('i').className = 'fas fa-volume-up';
+                    })
+                    .catch(function() {
+                        // Keep trying on any interaction
+                    });
+            }
+            
+            // Try immediately
+            startMusic();
+            
+            // Try after short delay
+            setTimeout(startMusic, 100);
+            setTimeout(startMusic, 500);
+            
+            // Try on EVERY possible user action
+            ['click', 'mousedown', 'mousemove', 'mouseenter', 'touchstart', 'touchmove', 
+             'scroll', 'keydown', 'keypress', 'focus', 'DOMContentLoaded'].forEach(function(event) {
+                document.addEventListener(event, startMusic, { passive: true, once: true });
+                window.addEventListener(event, startMusic, { passive: true, once: true });
+            });
+            
+            // Toggle button
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                if (!music.paused) {
+                    music.pause();
+                    started = true;
+                    btn.classList.remove('playing');
+                    btn.querySelector('.audio-status').textContent = 'Off';
+                    btn.querySelector('i').className = 'fas fa-music';
+                } else {
+                    music.play()
+                        .then(function() {
+                            started = true;
+                            btn.classList.add('playing');
+                            btn.querySelector('.audio-status').textContent = 'On';
+                            btn.querySelector('i').className = 'fas fa-volume-up';
+                        })
+                        .catch(function(err) {
+                            alert('Error playing audio: ' + err.message);
+                        });
+                }
+            });
+        })();
+    </script>
 
     <script>
         // Initialize carousel on DOM ready
@@ -310,7 +490,7 @@
             });
         }
     </script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}?v=5.1"></script>
 </body>
 </html>
 

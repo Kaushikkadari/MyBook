@@ -1,3 +1,307 @@
+// ========== CINEMATIC ANIMATIONS & INTERACTIONS ==========
+
+console.log('🎬 Initializing Cinematic Animations...');
+
+// Typing Effect for Hero Subtitle
+document.addEventListener('DOMContentLoaded', function() {
+    const typingElement = document.querySelector('.typing-effect');
+    if (typingElement) {
+        const text = typingElement.getAttribute('data-text') || 'Some stories aren\'t written — they\'re felt.';
+        typingElement.textContent = '';
+        typingElement.style.width = '0';
+        
+        let charIndex = 0;
+        function typeChar() {
+            if (charIndex < text.length) {
+                typingElement.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50 + Math.random() * 30); // Varied typing speed
+            } else {
+                setTimeout(() => {
+                    typingElement.style.borderRight = 'none';
+                }, 500);
+            }
+        }
+        
+        setTimeout(typeChar, 1500); // Start after title animation
+    }
+});
+
+// Scroll Progress Bar
+window.addEventListener('scroll', function() {
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    if (progressBar) {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    }
+});
+
+// Enhanced Floating Bokeh Particles
+function createBokehParticles() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    const particlesContainer = document.querySelector('.particles');
+    if (!particlesContainer) return;
+    
+    // Create beautiful bokeh orbs
+    for (let i = 0; i < 20; i++) {
+        const bokeh = document.createElement('div');
+        const size = Math.random() * 80 + 40;
+        const duration = Math.random() * 15 + 10;
+        const delay = Math.random() * 5;
+        
+        bokeh.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(255, 255, 255, 0.2), 
+                rgba(167, 139, 250, 0.15) 50%, 
+                rgba(236, 72, 153, 0.1));
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: float ${duration}s ease-in-out ${delay}s infinite, 
+                       pulse ${duration / 2}s ease-in-out ${delay}s infinite;
+            filter: blur(${Math.random() * 3 + 1}px);
+            pointer-events: none;
+        `;
+        
+        particlesContainer.appendChild(bokeh);
+    }
+    
+    console.log('✨ Bokeh particles created');
+}
+
+createBokehParticles();
+
+// Quote Section - Letter by Letter Animation with Keyword Highlighting
+function animateQuoteText(container) {
+    const quoteText = container.querySelector('.quote-text');
+    if (!quoteText || quoteText.hasAttribute('data-animated')) return;
+    
+    quoteText.setAttribute('data-animated', 'true');
+    const originalText = quoteText.textContent;
+    quoteText.innerHTML = '';
+    
+    // Keywords to highlight
+    const keywords = ['love', 'heart', 'silence', 'feelings', 'emotions', 'beautiful', 'chaos'];
+    
+    let charIndex = 0;
+    function revealLetter() {
+        if (charIndex < originalText.length) {
+            const char = originalText.charAt(charIndex);
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.opacity = '0';
+            span.style.animation = 'letterFadeIn 0.3s ease forwards';
+            span.style.animationDelay = (charIndex * 0.03) + 's';
+            
+            // Check if we're at the start of a keyword
+            let isKeyword = false;
+            for (const keyword of keywords) {
+                if (originalText.substr(charIndex, keyword.length).toLowerCase() === keyword.toLowerCase()) {
+                    isKeyword = true;
+                    break;
+                }
+            }
+            
+            if (isKeyword) {
+                span.style.color = 'var(--secondary-color)';
+                span.style.textShadow = '0 0 10px rgba(236, 72, 153, 0.6)';
+                span.style.fontWeight = '600';
+            }
+            
+            quoteText.appendChild(span);
+            charIndex++;
+            setTimeout(revealLetter, 30);
+        }
+    }
+    
+    // Add CSS for letter animation
+    if (!document.getElementById('letterAnimStyle')) {
+        const style = document.createElement('style');
+        style.id = 'letterAnimStyle';
+        style.textContent = `
+            @keyframes letterFadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    setTimeout(revealLetter, 300);
+}
+
+// Page Flip Transition for Quotes
+function pageFlipTransition(oldQuote, newQuote, callback) {
+    console.log('📖 Page flip starting...');
+    
+    if (!oldQuote || !newQuote) {
+        console.warn('Missing quote elements for flip');
+        return;
+    }
+    
+    // Phase 1: Flip out the old quote (like turning a page left)
+    oldQuote.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s ease';
+    oldQuote.style.transformOrigin = 'center left';
+    oldQuote.style.transformStyle = 'preserve-3d';
+    oldQuote.style.transform = 'perspective(2000px) rotateY(-180deg) scale(0.8)';
+    oldQuote.style.opacity = '0';
+    
+    // Phase 2: After old quote flips out, prepare and flip in new quote
+    setTimeout(() => {
+        // Hide old quote completely
+        oldQuote.classList.remove('active');
+        oldQuote.style.visibility = 'hidden';
+        oldQuote.style.transform = '';
+        oldQuote.style.opacity = '';
+        oldQuote.style.transition = '';
+        
+        // Prepare new quote (flipped and hidden)
+        newQuote.style.visibility = 'visible';
+        newQuote.style.transformOrigin = 'center right';
+        newQuote.style.transformStyle = 'preserve-3d';
+        newQuote.style.transform = 'perspective(2000px) rotateY(180deg) scale(0.8)';
+        newQuote.style.opacity = '0';
+        newQuote.classList.add('active');
+        
+        // Small delay before animating in
+        setTimeout(() => {
+            // Flip in the new quote (like turning a page right)
+            newQuote.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s ease';
+            newQuote.style.transform = 'perspective(2000px) rotateY(0deg) scale(1)';
+            newQuote.style.opacity = '1';
+            
+            console.log('📖 Page flip in progress...');
+            
+            // Animate text after flip completes
+            setTimeout(() => {
+                animateQuoteText(newQuote);
+                
+                // Clean up inline styles after animation
+                setTimeout(() => {
+                    newQuote.style.transform = '';
+                    newQuote.style.transition = '';
+                    newQuote.style.transformOrigin = '';
+                    console.log('✅ Page flip complete!');
+                    if (callback) callback();
+                }, 100);
+            }, 800);
+        }, 50);
+    }, 800);
+}
+
+// Countdown timer removed per user request
+
+// Email Notification Form Handler
+window.handleNotifySubmit = function(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const emailInput = form.querySelector('.email-input');
+    const button = form.querySelector('.btn-notify');
+    const successDiv = document.querySelector('.notify-success');
+    
+    if (!emailInput || !emailInput.value) return false;
+    
+    // Animate button
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Subscribing...</span>';
+    button.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        // Hide form
+        form.style.transition = 'all 0.5s ease';
+        form.style.opacity = '0';
+        form.style.transform = 'scale(0.8)';
+        
+        setTimeout(() => {
+            form.style.display = 'none';
+            
+            // Show success message
+            if (successDiv) {
+                successDiv.style.display = 'block';
+                successDiv.style.animation = 'success-appear 0.5s ease forwards';
+            }
+            
+            // Store email (in real app, send to backend)
+            console.log('📧 Email subscribed:', emailInput.value);
+            
+            // Confetti effect
+            createConfetti();
+        }, 500);
+    }, 1500);
+    
+    return false;
+};
+
+// Confetti Effect
+function createConfetti() {
+    const colors = ['#a78bfa', '#ec4899', '#3b82f6', '#26de81'];
+    
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            left: ${Math.random() * 100}%;
+            top: -10px;
+            opacity: 1;
+            border-radius: 50%;
+            z-index: 10000;
+            pointer-events: none;
+        `;
+        
+        document.body.appendChild(confetti);
+        
+        const endX = Math.random() * 100;
+        const endY = window.innerHeight + 50;
+        const rotation = Math.random() * 720;
+        
+        confetti.animate([
+            { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+            { transform: `translate(${endX - 50}vw, ${endY}px) rotate(${rotation}deg)`, opacity: 0 }
+        ], {
+            duration: 2000 + Math.random() * 1000,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        });
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// Audio control is now handled inline in index.html for simplicity
+
+
+// Cinematic Ending - Trigger when in view
+const endingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            console.log('🎬 Cinematic ending triggered');
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.3 });
+
+const cinematicEnding = document.querySelector('.cinematic-ending');
+if (cinematicEnding) {
+    endingObserver.observe(cinematicEnding);
+}
+
+console.log('✅ All cinematic animations initialized!');
+
 // Smooth scrolling for navigation links with animation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -478,7 +782,7 @@ socialLinks.forEach((link, index) => {
     });
 });
 
-// Quotes Carousel - Fixed and Working
+// Enhanced Quotes Carousel with Page Flip & Letter Animation
 (function initCarousel() {
     let currentQuote = 0;
     const quoteContainers = document.querySelectorAll('.quote-container');
@@ -486,7 +790,7 @@ socialLinks.forEach((link, index) => {
     const prevBtn = document.querySelector('.quote-nav-btn.prev');
     const nextBtn = document.querySelector('.quote-nav-btn.next');
 
-    console.log('🎠 Carousel Initializing...', {
+    console.log('🎠 Enhanced Carousel Initializing...', {
         quotes: quoteContainers.length,
         dots: !!quoteDots,
         prev: !!prevBtn,
@@ -499,9 +803,10 @@ socialLinks.forEach((link, index) => {
         return;
     }
 
-    // Initialize first quote as active
+    // Initialize first quote as active with animation
     quoteContainers[0].classList.add('active');
-    console.log('✅ First quote activated');
+    animateQuoteText(quoteContainers[0]);
+    console.log('✅ First quote activated with animation');
     
     // Create dots
     if (quoteDots) {
@@ -519,14 +824,16 @@ socialLinks.forEach((link, index) => {
     }
     
     function showQuote(index) {
-        console.log('📖 Showing quote:', index);
-        quoteContainers.forEach((container, i) => {
-            if (i === index) {
-                container.classList.add('active');
-            } else {
-                container.classList.remove('active');
-            }
-        });
+        console.log('📖 Showing quote with page flip:', index);
+        
+        const oldIndex = currentQuote;
+        if (oldIndex === index) return;
+        
+        const oldQuote = quoteContainers[oldIndex];
+        const newQuote = quoteContainers[index];
+        
+        // Use page flip transition
+        pageFlipTransition(oldQuote, newQuote);
         
         // Update dots
         const dots = document.querySelectorAll('.quote-dot');
@@ -540,20 +847,21 @@ socialLinks.forEach((link, index) => {
     }
     
     function goToQuote(index) {
+        if (index === currentQuote) return;
+        showQuote(index);
         currentQuote = index;
-        showQuote(currentQuote);
     }
     
     function nextQuote() {
-        currentQuote = (currentQuote + 1) % quoteContainers.length;
-        console.log('➡️ Next quote:', currentQuote);
-        showQuote(currentQuote);
+        const newIndex = (currentQuote + 1) % quoteContainers.length;
+        console.log('➡️ Next quote:', newIndex);
+        goToQuote(newIndex);
     }
     
     function prevQuote() {
-        currentQuote = (currentQuote - 1 + quoteContainers.length) % quoteContainers.length;
-        console.log('⬅️ Previous quote:', currentQuote);
-        showQuote(currentQuote);
+        const newIndex = (currentQuote - 1 + quoteContainers.length) % quoteContainers.length;
+        console.log('⬅️ Previous quote:', newIndex);
+        goToQuote(newIndex);
     }
     
     // Add click event listeners
@@ -581,11 +889,11 @@ socialLinks.forEach((link, index) => {
         console.warn('❌ Next button not found!');
     }
     
-    // Auto-advance quotes every 5 seconds
+    // Auto-advance quotes every 10 seconds (longer for page flip + letter animation)
     setInterval(function() {
         nextQuote();
-    }, 5000);
-    console.log('✅ Auto-advance enabled');
+    }, 10000);
+    console.log('✅ Auto-advance enabled (10 seconds)');
     
     // Keyboard navigation for quotes
     document.addEventListener('keydown', function(e) {
@@ -600,8 +908,34 @@ socialLinks.forEach((link, index) => {
     });
     console.log('✅ Keyboard navigation enabled');
     
-    console.log('🎉 Carousel fully initialized!');
+    console.log('🎉 Enhanced Carousel fully initialized!');
 })();
+
+// Equation Dividers - Fade in when scrolled into view
+document.addEventListener('DOMContentLoaded', function() {
+    const equationDividers = document.querySelectorAll('.equation-divider');
+    
+    if (equationDividers.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    console.log('✨ Equation divider revealed');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        equationDividers.forEach(divider => {
+            observer.observe(divider);
+        });
+        
+        console.log('📊 Initialized', equationDividers.length, 'equation dividers');
+    }
+});
+
+// Signature removed per user request
 
 console.log('🚀 Book Website Loaded with Amazing Animations! 📚✨🎨');
 
