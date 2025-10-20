@@ -76,14 +76,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise configuration for static files - Simplified for Vercel
-# Don't use manifest storage as it can cause issues on Vercel
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Simplified static files configuration for Vercel
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-# WhiteNoise settings for better static file serving
+# WhiteNoise settings
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = True
-WHITENOISE_STATIC_PREFIX = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
